@@ -60,10 +60,18 @@ class MainMenu(Gtk.ApplicationWindow):
         
         self.modpackList_listview.set_model(self.modpacklist_store)
         self.modList_listview.set_model(self.modlist_store)
-        renderer = Gtk.CellRendererText() 
-        column = Gtk.TreeViewColumn(title="Name", cell_renderer=renderer)
-        self.modpackList_listview.append_column(column)
         
+        modpack_renderer = Gtk.CellRendererText() 
+        modpack_column = Gtk.TreeViewColumn("Name", modpack_renderer, text=0)
+        mod_renderer = Gtk.CellRendererText() 
+        mod_column = Gtk.TreeViewColumn("Name", mod_renderer, text=0)
+        self.modpackList_listview.append_column(modpack_column)
+        self.modList_listview.append_column(mod_column)
+        
+        #   play button
+        play_button.set_label("Play")
+        play_button.connect("clicked", self.OnClick_play_button)
+        play_button.set_halign(Gtk.Align.END)
         
         
                 
@@ -77,8 +85,18 @@ class MainMenu(Gtk.ApplicationWindow):
         
         #   listviews
         modlistviews_box = Gtk.Box()
-        modlistviews_box.append(self.modpackList_listview)
-        modlistviews_box.append(self.modList_listview)
+        
+        modpacklist_scrollwindow = Gtk.ScrolledWindow()
+        modpacklist_scrollwindow.set_vexpand(True)
+        modpacklist_scrollwindow.set_child(self.modpackList_listview)
+        
+        modlist_scrollwindow = Gtk.ScrolledWindow()
+        modlist_scrollwindow.set_vexpand(True)
+        modlist_scrollwindow.set_child(self.modList_listview)
+        
+        
+        modlistviews_box.append(modpacklist_scrollwindow)
+        modlistviews_box.append(modlist_scrollwindow)
         modlistviews_box.set_homogeneous(True)
         
         #   button boxes
@@ -101,6 +119,7 @@ class MainMenu(Gtk.ApplicationWindow):
         self.main_box.append(label_box)
         self.main_box.append(modlistviews_box)
         self.main_box.append(controlbox_box)
+        self.main_box.append(play_button)
         
         self.set_child(self.main_box)
         
@@ -132,8 +151,11 @@ class MainMenu(Gtk.ApplicationWindow):
     def OnClick_addModPack_button(self, button):
         MainMenuController.CreateModPack()
         self.update_modpacklist()
-        
-
+    
+    #TODO
+    # pass in modpackID
+    def OnClick_play_button(self, button):
+        MainMenuController.Play(0)
     
         
 
