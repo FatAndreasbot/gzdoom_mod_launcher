@@ -6,4 +6,8 @@ class Mod:
         self.file_path = path
         self.name = name
         self.id = 0
+    
+    def __str__(self):
+        return self.name
+    
         
