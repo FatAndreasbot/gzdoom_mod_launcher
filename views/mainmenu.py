@@ -8,9 +8,10 @@ from models.modpack import Modpack
 
 class MainMenu(Gtk.ApplicationWindow):
 
-    def __init__(self, app):
+    def __init__(self, app, dataAccessLayer):
 
         super(MainMenu, self).__init__(application=app)
+        self.Data = dataAccessLayer
         self.init_ui()
 
     def init_ui(self):
@@ -45,6 +46,24 @@ class MainMenu(Gtk.ApplicationWindow):
         addMod_button.set_label("+")
         addModpack_button.set_label("+")
         
+        removeMod_button.set_margin_end(4)
+        removeMod_button.set_margin_start(4)
+        removeMod_button.set_margin_bottom(4)
+        removeMod_button.set_margin_top(4)
+        removeModpack_button.set_margin_end(4)
+        removeModpack_button.set_margin_start(8)
+        removeModpack_button.set_margin_bottom(4)
+        removeModpack_button.set_margin_top(4)
+        
+        addMod_button.set_margin_end(8)
+        addMod_button.set_margin_start(4)
+        addMod_button.set_margin_bottom(4)
+        addMod_button.set_margin_top(4)
+        addModpack_button.set_margin_end(4)
+        addModpack_button.set_margin_start(4)
+        addModpack_button.set_margin_bottom(4)
+        addModpack_button.set_margin_top(4)
+        
         removeModpack_button.connect("clicked", self.OnClick_removeModPack_button)
         addModpack_button.connect("clicked", self.OnClick_addModPack_button)
         
@@ -68,10 +87,15 @@ class MainMenu(Gtk.ApplicationWindow):
         self.modpackList_listview.append_column(modpack_column)
         self.modList_listview.append_column(mod_column)
         
+        modpacklist_selection = self.modpackList_listview.get_selection()
+        modpacklist_selection.connect("changed", self.update_modlist)
+        
         #   play button
         play_button.set_label("Play")
         play_button.connect("clicked", self.OnClick_play_button)
         play_button.set_halign(Gtk.Align.END)
+        play_button.set_margin_end(8)
+        play_button.set_margin_bottom(8)
         
         
                 
@@ -85,6 +109,9 @@ class MainMenu(Gtk.ApplicationWindow):
         
         #   listviews
         modlistviews_box = Gtk.Box()
+        modlistviews_box.set_spacing(8)
+        modlistviews_box.set_margin_start(8)
+        modlistviews_box.set_margin_end(8)
         
         modpacklist_scrollwindow = Gtk.ScrolledWindow()
         modpacklist_scrollwindow.set_vexpand(True)
@@ -129,9 +156,14 @@ class MainMenu(Gtk.ApplicationWindow):
     # write an implemetation 
     # right now it's just a mock
     def update_modpacklist(self):
-        self.modpacklist_store.append(["Vanilla Doom", 0])
+        id = len(self.modpacklist_store)
+        self.modpacklist_store.append(["Vanilla Doom", id])
     
-    
+    def update_modlist(self, selection:Gtk.TreeSelection):
+        model, treeiter = selection.get_selected()
+        if treeiter is not None:
+            print(model[treeiter][1])
+        
     
     #TODO
     # pass in modID
