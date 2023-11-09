@@ -5,13 +5,14 @@ from gi.repository import Gtk, Adw
 from controllers import MainMenuController
 from models.modfile import Mod
 from models.modpack import Modpack
+from models.DAL_abstractClass import abstractDAL
 
 class MainMenu(Gtk.ApplicationWindow):
 
     def __init__(self, app, dataAccessLayer):
 
         super(MainMenu, self).__init__(application=app)
-        self.Data = dataAccessLayer
+        self.Data:abstractDAL = dataAccessLayer()
         self.init_ui()
 
     def init_ui(self):
@@ -152,32 +153,56 @@ class MainMenu(Gtk.ApplicationWindow):
         
     
     
-    #TODO
-    # write an implemetation 
-    # right now it's just a mock
     def update_modpacklist(self):
-        id = len(self.modpacklist_store)
-        self.modpacklist_store.append(["Vanilla Doom", id])
+        self.modpacklist_store.clear()
+        modpacks = self.Data.GetAllModpacks()
+        for i, v in enumerate(modpacks):
+            self.modpacklist_store.append([v, i])
+            
+        self.modlist_store.clear()
+
     
-    def update_modlist(self, selection:Gtk.TreeSelection):
-        model, treeiter = selection.get_selected()
-        if treeiter is not None:
-            print(model[treeiter][1])
+    def update_modlist(self, selection:Gtk.TreeSelection=None):
+        if selection is None:
+            selection = self.modpackList_listview.get_selection()
         
-    
-    #TODO
-    # pass in modID
+        model, treeiter = selection.get_selected()
+        self.modlist_store.clear()
+        
+        if treeiter is not None:
+            modpackID = model[treeiter][1]
+            mods = self.Data.GetMods(modpackID)
+            for i, v in enumerate(mods):
+                self.modlist_store.append([v["name"], i])
+            
     def OnClick_removeMod_button(self, button):
-        MainMenuController.RemoveMod(0)
+        model, treeiter = self.modpackList_listview.get_selection().get_selected()
+        if treeiter is None:
+            return
+        modpackID = model[treeiter][1]
+        
+        model, treeiter = self.modList_listview.get_selection().get_selected()
+        if treeiter is None:
+            return
+        modID = model[treeiter][1]
+        MainMenuController.RemoveMod(modpackID, modID, self.Data)
+            
+        self.update_modlist()
     
+    # TODO
+    # this
     def OnClick_addMod_button(self, button):
         MainMenuController.AddMod()
     
     #TODO
     # pass in modpackID
     def OnClick_removeModPack_button(self, button):
+        model, treeiter = self.modpackList_listview.get_selection().get_selected()
+        if treeiter is None:
+            return
+        modpackID = model[treeiter][1]
         
-        MainMenuController.DeleteModPack(0)
+        MainMenuController.DeleteModPack(modpackID, self.Data)
         self.update_modpacklist()
     
     def OnClick_addModPack_button(self, button):
@@ -187,7 +212,11 @@ class MainMenu(Gtk.ApplicationWindow):
     #TODO
     # pass in modpackID
     def OnClick_play_button(self, button):
-        MainMenuController.Play(0)
+        model, treeiter = self.modpackList_listview.get_selection().get_selected()
+        if treeiter is None:
+            return
+        modpackID = model[treeiter][1]
+        MainMenuController.Play(modpackID, self.Data)
     
         
 

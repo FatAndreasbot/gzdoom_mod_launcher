@@ -1,8 +1,10 @@
 from models.modfile import Mod
 from models.modpack import Modpack
+from models.DAL_abstractClass import abstractDAL
 
 
-class dataAcessMock:
+
+class DataAcessMock(abstractDAL):
     def __init__(self):
         self.data = {
             "Modpacks":[
@@ -20,6 +22,20 @@ class dataAcessMock:
                             "file_path":"/home/andreasbot/.config/gzdoom/Mods and maps/Ashes2063Enriched2_23.pk3"
                         }
                     ]
+                },
+                {
+                    "name":"Brutal doom 1monster",
+                    "description":"",
+                    "modlist":[
+                        {
+                            "name":"Brutal doom",
+                            "file_path":"/home/andreasbot/Games/Doom mods/brutalv21/brutalv21.pk3",
+                        },
+                        {
+                            "name":"1monster map pack",
+                            "file_path":"/home/andreasbot/Games/Doom mods/1monster/1monster.wad",
+                        }
+                    ]
                 }
                     
             ],
@@ -32,8 +48,8 @@ class dataAcessMock:
             formatted_return.append(v["name"])
         return formatted_return
     
-    def GetMods(self, modpack_id:int):
-        modpack = self.data["Modpacks"][modpack_id]
+    def GetMods(self, modpackID:int):
+        modpack = self.data["Modpacks"][modpackID]
         return modpack["modlist"]
     
     def AddModpack(self,modpack:Modpack):
@@ -56,6 +72,13 @@ class dataAcessMock:
         
     def RemoveMod(self, modpackID:int, modID:int):
         self.data["Modpacks"][modpackID]["modlist"].pop(modID)
+        
+    def EditMod(self, modpackID: int, modID: int, editedMod: Mod):
+        return super().EditMod(modpackID, modID, editedMod)
+    
+    def EditModpack(self, modpackID: int, editedModpack: Modpack):
+        return super().EditModpack(modpackID, editedModpack)    
+    
         
     def __convert_modClassInstance_to_dict(mod:Mod):
         mod_dict = {
