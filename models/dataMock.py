@@ -41,16 +41,27 @@ class DataAcessMock(abstractDAL):
             ],
         }
     
-    def GetAllModpacks(self):
+    def GetAllModpacks(self)->list[Modpack]:
         modpacks:list = self.data["Modpacks"]
-        formatted_return = []
-        for i, v in enumerate(modpacks):
-            formatted_return.append(v["name"])
+        formatted_return:list[Modpack] = []
+        for v in modpacks:
+            currentModPack:Modpack = Modpack(v["name"], v["description"])
+            
+            for m in v["modlist"]:
+                currMod:Mod = Mod(m["file_path"], m["name"])
+                currentModPack.AddMod(currMod)
+            
+            formatted_return.append(currentModPack)
         return formatted_return
     
-    def GetMods(self, modpackID:int):
-        modpack = self.data["Modpacks"][modpackID]
-        return modpack["modlist"]
+    def GetMods(self, modpackID:int)->list[Mod]:
+        modlist = self.data["Modpacks"][modpackID]["modlist"]
+        mods:list[Modpack] = []
+        for m in modlist:
+            mod = Mod(m["file_path"], m["name"])
+            mods.append(mod)
+        
+        return mods
     
     def AddModpack(self,modpack:Modpack):
         

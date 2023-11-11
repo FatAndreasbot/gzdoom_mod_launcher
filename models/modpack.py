@@ -20,6 +20,7 @@ class Modpack:
         
     def AddMod(self, mod:Mod):
         self.modlist.append(mod)
+        
     
     def __str__(self):
         return self.name

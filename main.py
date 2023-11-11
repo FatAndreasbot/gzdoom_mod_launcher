@@ -4,6 +4,7 @@ gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw
 from views.mainmenu import MainMenu
 from models.dataMock import DataAcessMock
+from controllers.MainMenuController import MainMenuController
 
 
 
@@ -11,10 +12,16 @@ from models.dataMock import DataAcessMock
 
 if __name__ == "__main__":
     
+    app = Gtk.Application(application_id='DoomModManager')
+    
+    appController = MainMenuController(DataAcessMock())
+    
+    
+    
     def on_activate(app):
-        win = MainMenu(app, DataAcessMock)
+        win = MainMenu(app, appController)
         win.present()
     
-    app = Gtk.Application(application_id='DoomModManager')
+    
     app.connect('activate', on_activate)
     app.run(None)

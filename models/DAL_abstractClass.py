@@ -12,11 +12,11 @@ class abstractDAL(ABC):
     
     
     @abstractmethod
-    def GetAllModpacks(self):
-        pass
+    def GetAllModpacks(self)->list[Modpack]:
+        return [Modpack()]
     
     @abstractmethod
-    def GetMods(self, modpackID: int):
+    def GetMods(self, modpackID: int)->list[Mod]:
         pass
     
     @abstractmethod
