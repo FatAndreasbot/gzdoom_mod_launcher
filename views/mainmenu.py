@@ -3,6 +3,7 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw
 from controllers.MainMenuController import MainMenuController
+from views.addModWindow import AddModWindowDialiog
 
 class MainMenu(Gtk.ApplicationWindow):
 
@@ -188,8 +189,9 @@ class MainMenu(Gtk.ApplicationWindow):
     
     # TODO
     # this
-    def OnClick_addMod_button(self, button):
-        self.controller.AddMod(self)
+    def OnClick_addModPack_button(self, button):
+        # self.controller.AddMod(self)
+        print("not implemented")
     
     
     def OnClick_removeModPack_button(self, button):
@@ -201,9 +203,12 @@ class MainMenu(Gtk.ApplicationWindow):
         self.controller.DeleteModPack(modpackID)
         self.update_modpacklist()
     
-    def OnClick_addModPack_button(self, button):
-        self.controller.CreateModPack()
-        self.update_modpacklist()
+    def OnClick_addMod_button(self, button):
+        # self.controller.CreateModPack()
+        # self.update_modpacklist()
+        win = AddModWindowDialiog(self.get_application(), self.controller)
+        win.show()
+        
     
     
     def OnClick_play_button(self, button):

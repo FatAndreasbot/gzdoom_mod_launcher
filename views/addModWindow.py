@@ -2,12 +2,14 @@ import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw
+from controllers.MainMenuController import MainMenuController
 
 
 class AddModWindowDialiog(Gtk.Window):
-    def __init__(self, parent):
-        super.__init__()
+    def __init__(self, parent_app, controller:MainMenuController):
+        super(AddModWindowDialiog, self).__init__(application=parent_app)
         self.set_title("Add mod")
+        self.init_ui()
         
         
     def init_ui(self):
@@ -37,6 +39,20 @@ class AddModWindowDialiog(Gtk.Window):
         #   buttons
         add_button.connect("clicked", self.onClick_add_button)
         chooseFile_button.connect("clicked", self.onClick_chooseFile_button)
+        
+        # putting elements into the ui
+        name_box.append(name_label)
+        name_box.append(nameField_text)
+        
+        path_box.append(path_label)
+        path_box.append(pathField_text)
+        path_box.append(chooseFile_button)
+        
+        main_box.append(name_box)
+        main_box.append(path_box)
+        main_box.append(add_button)
+        
+        self.set_child(main_box)
             
         
         

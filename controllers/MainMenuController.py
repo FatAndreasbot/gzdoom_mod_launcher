@@ -1,6 +1,5 @@
 from models.modpack import Modpack, Mod
 from models.DAL_abstractClass import abstractDAL
-from views.addModWindow import AddModWindowDialiog
 import subprocess
 import multiprocessing
 import gi
@@ -35,8 +34,9 @@ class MainMenuController:
         
         
     def AddMod(parent):
-        addModWindowDialiog = AddModWindowDialiog(parent)
-        addModWindowDialiog.show()
+        # addModWindowDialiog = AddModWindowDialiog(parent)
+        # addModWindowDialiog.show()
+        print("not implemented")
         
         
     def RemoveMod(self, modpackID:int, modID:int):
