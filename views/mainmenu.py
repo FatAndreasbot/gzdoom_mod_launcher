@@ -206,7 +206,12 @@ class MainMenu(Gtk.ApplicationWindow):
     def OnClick_addMod_button(self, button):
         # self.controller.CreateModPack()
         # self.update_modpacklist()
-        win = AddModWindowDialiog(self.get_application(), self.controller)
+        model, treeiter = self.modpackList_listview.get_selection().get_selected()
+        if treeiter is None:
+            return
+        modpackID = model[treeiter][1]
+
+        win = AddModWindowDialiog(self.get_application(), self.controller, modpackID)
         win.show()
         
     

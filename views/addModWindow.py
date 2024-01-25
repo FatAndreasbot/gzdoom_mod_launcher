@@ -6,11 +6,12 @@ from controllers.MainMenuController import MainMenuController
 
 
 class AddModWindowDialiog(Gtk.Window):
-    def __init__(self, parent_app, controller:MainMenuController):
+    def __init__(self, parent_app, controller:MainMenuController, modpackID:int):
         super(AddModWindowDialiog, self).__init__(application=parent_app)
         self.set_title("Add mod")
         self.init_ui()
         self.controller = controller
+        self.modpackID = modpackID
         
         
     def init_ui(self):
@@ -60,7 +61,8 @@ class AddModWindowDialiog(Gtk.Window):
     def onClick_add_button(self, button):
         self.controller.AddMod(
             self.nameField_text.get_text(),
-            self.pathField_text.get_text()
+            self.pathField_text.get_text(),
+            self.modpackID
         )
     
     def onClick_chooseFile_button(self, button):
