@@ -18,25 +18,21 @@ class DataAcessMock(abstractDAL):
                     "description":"A post-apok total conversion",
                     "modlist":[
                         {
-                            "name":"Ashes 2063",
-                            "file_path":"/home/andreasbot/.config/gzdoom/Mods and maps/Ashes2063Enriched2_23.pk3"
-                        }
-                    ]
-                },
-                {
-                    "name":"Brutal doom 1monster",
-                    "description":"",
-                    "modlist":[
-                        {
-                            "name":"Brutal doom",
-                            "file_path":"/home/andreasbot/Games/Doom mods/brutalv21/brutalv21.pk3",
+                            "name":"AshesSAMenu",
+                            "file_path":"/home/andreasbot/Games/Doom mods/AshesStandalone/AshesSAMenu.pk3"
                         },
                         {
-                            "name":"1monster map pack",
-                            "file_path":"/home/andreasbot/Games/Doom mods/1monster/1monster.wad",
-                        }
+                            "name":"Ashes2063Enriched2_23",
+                            "file_path":"/home/andreasbot/Games/Doom mods/AshesStandalone/Ashes2063Enriched2_23.pk3"
+                        },
+                        {
+                            "name":"Ashes2063EnrichedFDPatch",
+                            "file_path":"/home/andreasbot/Games/Doom mods/AshesStandalone/Ashes2063EnrichedFDPatch.pk3"
+                        },
+                        
                     ]
-                }
+                },
+                
                     
             ],
         }

@@ -19,7 +19,8 @@ class MainMenuController:
         
     def Play(self, modpackID:int):
         modlist = self.dal.GetMods(modpackID)
-        command = ["flatpak", "run", "org.zdoom.GZDoom"]
+        # command = ["flatpak", "run", "org.zdoom.GZDoom"]
+        command = ["/usr/bin/gzdoom"]
         
         for v in modlist:
             command.append("-file")
@@ -33,9 +34,11 @@ class MainMenuController:
         
         
         
-    def AddMod(parent):
+    def AddMod(self, path, name):
         # addModWindowDialiog = AddModWindowDialiog(parent)
         # addModWindowDialiog.show()
+        print(path)
+        print(name)
         print("not implemented")
         
         
@@ -56,4 +59,5 @@ class MainMenuController:
             return m.name
         
         return list(map(getName, modlist))
+
         

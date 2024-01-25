@@ -10,6 +10,7 @@ class AddModWindowDialiog(Gtk.Window):
         super(AddModWindowDialiog, self).__init__(application=parent_app)
         self.set_title("Add mod")
         self.init_ui()
+        self.controller = controller
         
         
     def init_ui(self):
@@ -28,8 +29,8 @@ class AddModWindowDialiog(Gtk.Window):
         chooseFile_button = Gtk.Button()
         
         #   text inputs
-        nameField_text = Gtk.Text()
-        pathField_text = Gtk.Text()
+        self.nameField_text = Gtk.Entry()
+        self.pathField_text = Gtk.Entry()
         
         # set up elements
         #   labels
@@ -42,10 +43,10 @@ class AddModWindowDialiog(Gtk.Window):
         
         # putting elements into the ui
         name_box.append(name_label)
-        name_box.append(nameField_text)
+        name_box.append(self.nameField_text)
         
         path_box.append(path_label)
-        path_box.append(pathField_text)
+        path_box.append(self.pathField_text)
         path_box.append(chooseFile_button)
         
         main_box.append(name_box)
@@ -57,7 +58,10 @@ class AddModWindowDialiog(Gtk.Window):
         
         
     def onClick_add_button(self, button):
-        print("not implemented")
+        self.controller.AddMod(
+            self.nameField_text.get_text(),
+            self.pathField_text.get_text()
+        )
     
     def onClick_chooseFile_button(self, button):
         print("not implemented")
