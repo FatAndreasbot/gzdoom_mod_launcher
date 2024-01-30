@@ -65,7 +65,7 @@ class DataAcessMock(abstractDAL):
         modpack_dict = {
             "name": modpack.name,
             "description":modpack.description,
-            "modlist":list(map(modpack.modlist, self.__convert_modClassInstance_to_dict))
+            "modlist":list(map(modpack.modlist, convert_modClassInstance_to_dict))
         }
         
         self.data["Modpacks"].append(modpack_dict)
@@ -74,7 +74,7 @@ class DataAcessMock(abstractDAL):
         self.data["Modpacks"].pop(modpackId)
         
     def AddMod(self, modpackID:int, mod:Mod):
-        mod_dict = self.__convert_modClassInstance_to_dict(mod)
+        mod_dict = convert_modClassInstance_to_dict(mod)
         self.data["Modpacks"][modpackID]["modlist"].append(mod_dict)
         
     def RemoveMod(self, modpackID:int, modID:int):
@@ -87,9 +87,9 @@ class DataAcessMock(abstractDAL):
         return super().EditModpack(modpackID, editedModpack)    
     
         
-    def __convert_modClassInstance_to_dict(mod:Mod):
-        mod_dict = {
-            "name":mod.name,
-            "file_path":mod.file_path
-        }
-        return mod_dict
+def convert_modClassInstance_to_dict(mod:Mod):
+    mod_dict = {
+        "name":mod.name,
+        "file_path":mod.file_path
+    }
+    return mod_dict

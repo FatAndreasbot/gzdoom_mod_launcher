@@ -37,10 +37,8 @@ class MainMenuController:
     def AddMod(self, path, name, modpackID):
         # addModWindowDialiog = AddModWindowDialiog(parent)
         # addModWindowDialiog.show()
-        print(path)
-        print(name)
-        print(modpackID)
-        print("not implemented")
+        mod = Mod(path, name)
+        self.dal.AddMod(modpackID, mod)
         
         
     def RemoveMod(self, modpackID:int, modID:int):

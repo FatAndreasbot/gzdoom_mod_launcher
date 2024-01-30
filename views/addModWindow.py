@@ -64,6 +64,7 @@ class AddModWindowDialiog(Gtk.Window):
             self.pathField_text.get_text(),
             self.modpackID
         )
+        # parent
     
     def onClick_chooseFile_button(self, button):
         print("not implemented")

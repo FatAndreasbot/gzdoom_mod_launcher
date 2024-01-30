@@ -10,4 +10,10 @@ class Mod:
     def __str__(self):
         return self.name
     
+    def to_dict(self) -> dict:
+        mod_dict = {
+            "name":self.name,
+            "file_path":mod.file_path
+        }
+        return mod_dict
         
