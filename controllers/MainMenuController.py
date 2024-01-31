@@ -2,12 +2,11 @@ from models.modpack import Modpack, Mod
 from models.DAL_abstractClass import abstractDAL
 import subprocess
 import multiprocessing
-import gi
-
 
 
 class MainMenuController:
-    def __init__(self, DAL:abstractDAL):
+    def __init__(self, DAL: abstractDAL):
+        """Init app controller."""
         self.dal = DAL
         
     
