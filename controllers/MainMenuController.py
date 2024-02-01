@@ -8,8 +8,8 @@ class MainMenuController:
     def __init__(self, DAL: abstractDAL):
         """Init app controller."""
         self.dal = DAL
-        
-    
+
+
     def CreateModPack():
         print("CreateModPack not implemented")
         
